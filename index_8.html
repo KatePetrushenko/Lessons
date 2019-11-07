@@ -1,0 +1,272 @@
+<html>
+
+<head>
+    <title>JAVASCRIPT HW3</title>
+</head>
+
+<body>
+    <script>
+        // ЗАДАНИЯ ДЛЯ РАЗМИНКИ!!!!!!)))
+
+        //1) Вывести все значения свойств обьектов в массиве
+        var arr = [
+            { author: 'Sergei', book: 'Sergei\'s book' },
+            { author: 'Ivan', book: 'Ivan\'s book' },
+            { author: 'Dmitrii', book: 'Dmitrii\'s book' }
+        ];
+        function allArrValue(autorArr) {
+            let newArr = [];
+            for (let i = 0; i < autorArr.length; i++) {
+                let obj = autorArr[i]
+                for(p in obj) {
+                    if( Object.prototype.hasOwnProperty.call(obj,p) ) {
+                        newArr.push(obj[p]);  
+                    }
+                } 
+            }
+            return newArr;
+        }
+        console.log(allArrValue(arr));
+
+
+        //2) есть пустой обьект obj и три переменные k m n! добавить свойства к obj c ключами имена которых совпадают со значениями переменных 
+        // k, m, n и и значениями такими же как имя ключа!
+        var k = 'book';
+        var m = 'apartment';
+        var n = 'table';
+        var obj = {};
+        function varToString(varObj) {
+          let keysArr = Object.keys(varObj);
+          let newObj = {};
+          keysArr.map(key => {
+             let val = varObj[key];
+              newObj[val] = key
+            });
+          return newObj;
+        }
+        obj = varToString({ k, m, n });
+        console.log(obj)
+
+
+        // 3) Есть массив с обьектов claims нужно привести к такому виду чтобы получить один обьект с ключами id и со значением весь обьект
+        // Например 
+        const newObj = {
+            '1234': {
+                id: 1234,
+                model: 'MC7',
+                status: 'Open'
+            },
+            '3453': {
+                id: 3453,
+                model: 'MC7',
+                status: 'Open'
+            }
+            // и так далее
+        }
+        var claims = [
+            {
+                id: 1234,
+                model: 'MC7',
+                status: 'Open'
+            },
+            {
+                id: 3453,
+                model: 'MC7',
+                status: 'Open'
+            },
+            {
+                id: 6343,
+                model: 'Gran Tour',
+                status: 'Closed'
+            },
+            {
+                id: 7644,
+                status: 'In Progress'
+            },
+            {
+                id: 7686,
+                model: 'City Bike',
+                status: 'Closed'
+            },
+            {
+                id: 8356,
+                model: 'Bike',
+                status: 'Closed'
+            },
+            {
+                id: 9745,
+                model: 'Bicycle',
+                status: 'Closed'
+            },
+            {
+                id: 10253,
+                model: 'Bicycle',
+                status: 'Closed'
+            },
+            {
+                id: 14234,
+                model: 'Bike',
+                status: 'Closed'
+            }];
+
+            function keyObj(k) {
+                let newArr = {};
+                for (let i = 0; i < k.length; i++) {
+                    let key = k[i].id;
+                    newArr[key] = k[i];
+                }
+                return newArr;
+            }
+            console.log(keyObj(claims));
+
+
+        //4) Дан массив arr! Вернуть те которые в квадрате меньше самого большого значения
+        const arr_2 = [10, 6, 3, 5, 6, 2, 12, 64];
+        function maxVal(array) {
+            let newArr = array.filter(function(a) {
+                if ( Math.pow(a, 2) < Math.max.apply(null, array) ) {
+                    return a;
+                }
+            }, []);
+            return newArr;
+        }
+        console.log(maxVal(arr_2));
+
+
+        // 5) Написать свой собственный some! Функция должна принимать два параметра массив и функцию!!
+        function some(array, f) {
+            // your code
+            let newArr = array.filter(f);
+            if ( newArr.length>0 ) {
+                return true;
+            }
+            return false;
+        }
+        some([5, 2, 5, 1, 6, 3, 6], (el) => el > 5 );
+        console.log(some([5, 2, 5, 1, 6, 3, 6], (el) => el > 5 ));
+
+
+        // 6) Переопределить toString функции getArrayClone и обьекта iron
+
+        // не уверена , что поняла задание , наверное это имелось введу ??  :
+        let myTestArr = [0,1,2,3,4,5]
+        function getArrayClone(arr) {
+            return arr.slice();
+        }
+        console.log(getArrayClone(myTestArr));
+
+        getArrayClone.toString = function() {
+        	return arr.join();
+        }
+        console.log(getArrayClone(myTestArr).toString());
+        
+        const iron = {
+            power: 2000,
+            price: 2500
+        };
+        console.log(iron);
+        iron.toString = function() {
+        	return `Iron power: ${this.power}; Iron price: ${this.price}`;
+        }
+        console.log(iron.toString());
+
+
+        // 7)  Написать функцию которая записывает элементы из массива arr2 в новый массив которых нет в arr1!
+        var arr1 = [5, 2, 'a'];
+        var arr2 = [6, 5, 2, 4, 'a'];
+
+        function sumArr(a1, a2) {
+            let newArr = [];
+            for (let i = 0; i < a1.length; i++) {
+                if ( a2.includes(a1[i]) == false ) {
+                    newArr.push(a1[i]);
+                }
+            }
+            return newArr;
+        }
+        console.log(sumArr(arr2, arr1));
+        console.log('///');
+
+        // 8) Какой контекст имеет первый и второй массив?
+        var arr__1 = [5, 2, 'a'];
+        var arr__2 = [6, 5, 2, 4, 'a'];  
+        // не понятно задание . я так предполагаю речь о том, что если внутри масива будет вызыватся функция с this. То this будет обращаться к этому масиву . Как в примере на уроке: 
+
+        var arr__1_example = [5, 2, 'a', function () {
+            return this == arr__1_example; //this является этим масивом
+        }];
+        console.log(arr__1_example[arr__1_example.length-1]());
+
+        // тоже самое
+        var arr__2_example = [6, 5, 2, 4, 'a', function () {
+            return this == arr__2_example; //this является этим масивом
+        }];
+        console.log(arr__2_example[arr__2_example.length-1]());
+        console.log('///');
+
+        // 9) Есть два обьекта! Вызвать getSpeed1() с контекстом car2 и getSpeed2 с контекстом car1
+        var car1 =  {
+            speed: 200,
+            getSpeed1() {
+                return this.speed;
+            },
+        }
+        var car2 = {
+            speed: 220,
+            getSpeed2() {
+                return `${this.speed}km`;
+            }, 
+        }
+
+        function changeContext(e) {
+            return this;
+        }
+
+        let car_1 = car1.getSpeed1.bind(car2);
+        let car_2 = car2.getSpeed2.bind(car1);
+
+        console.log(car_1());
+        console.log(car_2());
+
+        //10) Есть массив из обьектов нужно отфильтровать только те у которых цена больше 40000 и где model не равна Mercedes с помощью filter!
+        const car = [
+            {
+                model: 'BMW',
+                price: 45000,
+                year: 2015,
+                country: 'Germany'
+            },
+            {
+                model: 'Audi',
+                price: 75000,
+                year: 2017,
+                country: 'Germany'
+            },
+            {
+                model: 'Mercedes',
+                price: 80000,
+                year: 2019,
+                country: 'Germany'
+            },
+            {
+                model: 'Volkswagen',
+                price: 35000,
+                year: 2019,
+                country: 'Germany'
+            },
+        ];
+
+        function filterCar(carArr) {
+            let maxPrice = 40000;
+            let newArr = carArr.filter(function(a, b) {
+                if ((a.price > maxPrice) && ( a.model != 'Mercedes' ) ) {
+                    return a;
+                }
+            });
+            return newArr;
+        }
+        console.log(filterCar(car));
+    </script>
+</body>
+
+</html>
