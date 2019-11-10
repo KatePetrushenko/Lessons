@@ -18,7 +18,7 @@
             obj;
         }
         const a = getResult();
-        console.log('RESULT', a);
+		console.log('RESULT', a);
         try {
             if (!a) throw new Error('Error!!!');
         }
@@ -28,9 +28,19 @@
 
         //2) исправить код чтобы консоль логи показывали от 0 до 10, и написать почему сейчас выводит десять десяток!!
         for (var i = 0; i < 10; i++) {
-            setTimeout(() => console.log(i), 0);
+        	function func() {
+        		console.log(i);
+        	}
+            setTimeout(func(), 0);
         }
+        ///и написать почему сейчас выводит десять десяток!! - условие и не выводило 10 десяток 
+        // например , если вывести через alert , то выведет 10 десяток:
+        for (var i = 0; i < 10; i++) {
+            // setTimeout(() => alert(i), 0);
+        }
+        // setTimeout попадает в очередь событий event queue. Ноль в конце говорит о том, что функция setTimeout выполнется после текущего кода, в данном случае в Call Stack выполнился весь цикл, а потом уже setTimeout;
 
+        console.log('3е задание:');
         // 3) Есть код!! В какой последовательности выполнится!
         function getDatas() {
             return [
@@ -46,20 +56,21 @@
             ]
         }
         const res = getDatas();
-        console.log('RES', res);
-        setTimeout(console.log('settimeout1'), 100);
-        setTimeout(console.log('settimeout'), 10);
-        console.log('One');
-        console.log('two');
+        console.log('RES', res); //выведется 1м (так как код синхронный)
+        setTimeout(() => console.log('settimeout1'), 100); // попадает в обработку и выведется последним. Исходя из очереди event queue
+        setTimeout(() => console.log('settimeout'), 10); // попадает в обработку и согластно очереди событий event queue выведется 4м (если брать код только в этом примере) когда Call Stack будет чистым.
+        console.log('One'); //выполнится 2м (так как код синхронный)
+        console.log('two'); //выполнится 3м (так как код синхронный)
+        
 
         //4) Что выведет alert в setTimeOut
         setTimeout(function () {
-            alert(i);
+            alert(j);
         }, 100);
 
-
-        for (var i = 0; i < 1000000; i++) {
+        for (var j = 0; j < 1000000; j++) {
         }
+        // alert выводит 1000000 так как функция setTimeout выводится после текущего кода (цикла). И в отличии от примера выше, выведет число один раз, так как находится вне цикла
 
         // 5) Есть функция funct! Сделать из нее функцию конструктор которая создает обьект со свойствами name lastName
         function funct(name, lastName) {
@@ -89,8 +100,8 @@
 
         // 7)  Создать функцию конструктор, которая принимает два свойства name, lastName конкатенирует их и сохраняет в замыкании в переменной fullName
         // random свойства не будет в обьекте ОБРАТИТЕ ВНИМАНИЕ потому что есть return!! Если не было бы return то был бы обьект с одним свойством
-        function factory1() {
-            var fullName;
+        function factory1(name, lastName2) {
+            var fullName = name + ' ' + lastName2;
             this.random = Math.random();
 
             return {
@@ -100,7 +111,11 @@
                 }
             };
         }
-        new factory1(name, lastName);
+        let name;
+        let lastName2;
+        new factory1(name, lastName2);
+
+        console.log(factory1('Kate', 'Petrushenko'));
 
         // 8) Есть код! Почему строчка с комментарием покажет {misha: NADUSHA}! Сделать так чтобы a.getObject(); вернул {misha: 'misha'}
         // то есть должны быть независимые обьекты!!
@@ -114,8 +129,8 @@
             };
         }
         var a1 = newFactory({misha: 'misha'});
-        // var k = a.getObject();
-        // k.misha = 'NADUSHA'; 
+        var k = a1.getObject();
+        k.misha = 'NADUSHA'; 
         a1.getObject(); // КОММЕНТАРИЙ!!! покажет NADUSHA 
     </script>
 </body>
