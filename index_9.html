@@ -28,17 +28,13 @@
 
         //2) исправить код чтобы консоль логи показывали от 0 до 10, и написать почему сейчас выводит десять десяток!!
         for (var i = 0; i < 10; i++) {
-        	function func() {
-        		console.log(i);
-        	}
-            setTimeout(func(), 0);
+        	(function(i) {
+                setTimeout(function(){
+                  console.log(i);
+                }, 0);
+            })(i);
         }
-        ///и написать почему сейчас выводит десять десяток!! - условие и не выводило 10 десяток 
-        // например , если вывести через alert , то выведет 10 десяток:
-        for (var i = 0; i < 10; i++) {
-            // setTimeout(() => alert(i), 0);
-        }
-        // setTimeout попадает в очередь событий event queue. Ноль в конце говорит о том, что функция setTimeout выполнется после текущего кода, в данном случае в Call Stack выполнился весь цикл, а потом уже setTimeout;
+        // setTimeout попадает в очередь событий event queue. Ноль в конце говорит о том, что функция setTimeout выполнется после текущего кода, в данном случае в Call Stack выполнился весь цикл, а потом уже setTimeout. И, как я понимаю , на момент вызова i уже будет равна 10
 
         console.log('3е задание:');
         // 3) Есть код!! В какой последовательности выполнится!
@@ -100,9 +96,12 @@
 
         // 7)  Создать функцию конструктор, которая принимает два свойства name, lastName конкатенирует их и сохраняет в замыкании в переменной fullName
         // random свойства не будет в обьекте ОБРАТИТЕ ВНИМАНИЕ потому что есть return!! Если не было бы return то был бы обьект с одним свойством
-        function factory1(name, lastName2) {
-            var fullName = name + ' ' + lastName2;
-            this.random = Math.random();
+        function factory1(name, lastName) {
+            this.name = name;
+            this.lastName = lastName;
+            var fullName = name + ' ' + lastName;
+
+            this.random = Math.random(); 
 
             return {
                 name: 'ZINA Borisova',
@@ -111,11 +110,12 @@
                 }
             };
         }
-        let name;
-        let lastName2;
-        new factory1(name, lastName2);
+        let name = "Kate";
+        let lastName2 = "Petrushenko";
+        let q = new factory1(name, lastName2);
 
-        console.log(factory1('Kate', 'Petrushenko'));
+        console.log(q);
+        console.log(q.getRealName());
 
         // 8) Есть код! Почему строчка с комментарием покажет {misha: NADUSHA}! Сделать так чтобы a.getObject(); вернул {misha: 'misha'}
         // то есть должны быть независимые обьекты!!
@@ -130,8 +130,18 @@
         }
         var a1 = newFactory({misha: 'misha'});
         var k = a1.getObject();
+        
+        
         k.misha = 'NADUSHA'; 
         a1.getObject(); // КОММЕНТАРИЙ!!! покажет NADUSHA 
+        console.log(a1.getObject());
+       
+        // Почему строчка с комментарием покажет {misha: NADUSHA}
+        // - потому что a1 возвращает обьект , а обьект ссылочный тип данных;
+
+        var myNewA1 = new newFactory({misha: 'misha'});
+        console.log(myNewA1.getObject()); 
+
     </script>
 </body>
 
