@@ -113,7 +113,7 @@
                 Req.onload = function () {
                     res(JSON.parse(this.responseText));
                 }
-                Req.open("GET", 'https://playwithpromise.herokuapp.com/api/order-review/getid/{id} ');
+                Req.open("GET", `https://playwithpromise.herokuapp.com/api/order-review/getid/${id}`);
                 Req.send();
             })
         }
