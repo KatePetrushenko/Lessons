@@ -79,12 +79,13 @@
         }) 
 
         Promise.all([prom1, prom2, prom3]).then(val => {
-            let newVal = val.filter(item => {
+            let newVal = val.map(item => {
                 if ( Array.isArray(item) ) {
-                    return item;
+                    return item.sort();
                 }
+                return item;
             });
-            return console.log(newVal);
+            return console.log(newVal); /// масив из промисов , в котором отсортирован этот [6, 2, 4, 6] масив 
         })
 
 
@@ -96,13 +97,31 @@
         // ответ будет обьект у которого будет поле orderList - массив с двух обьектов 
         // у обьектов будет productId еще сделать запрос по productId то есть два запроса ибо 2 обьекта в которых свой productId Promise.all в помощь!!
         // ВОТ ПРИМЕР ЗАПРОСА по первому URL! Конечно это нужно будет обернуть в промис!
-        var Req = new XMLHttpRequest();
-        Req.onload = function () {
-            if (!this.responseText) rej('BYE');
-            // res(JSON.parse(this.responseText));
+
+        let promise1 = new Promise(function(res, rej) {
+            var Req = new XMLHttpRequest();
+            Req.open("GET", 'https://playwithpromise.herokuapp.com/api/order-review/last');
+            Req.send();
+            Req.onload = function () {
+                if (this.status == 200) res(this.responseText);
+            }
+        });
+
+        function getId(id) {
+            return new Promise(function(res, rej) {
+                var Req = new XMLHttpRequest();
+                Req.onload = function () {
+                    if (!this.responseText) rej('BYE');
+                    // res(JSON.parse(this.responseText));
+                }
+                Req.open("GET", 'https://playwithpromise.herokuapp.com/api/order-review/getid/{id} ');
+                Req.send();
+            })
         }
-        Req.open("GET", 'https://playwithpromise.herokuapp.com/api/order-review/last');
-        Req.send();
+
+        promise1.then(data => {
+            console.log(data);
+        })
         
     </script>
 </body>
