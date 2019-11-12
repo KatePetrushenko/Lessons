@@ -103,7 +103,7 @@
             Req.open("GET", 'https://playwithpromise.herokuapp.com/api/order-review/last');
             Req.send();
             Req.onload = function () {
-                if (this.status == 200) res(this.responseText);
+                if (this.status == 200) res(JSON.parse(this.responseText));
             }
         });
 
@@ -111,8 +111,7 @@
             return new Promise(function(res, rej) {
                 var Req = new XMLHttpRequest();
                 Req.onload = function () {
-                    if (!this.responseText) rej('BYE');
-                    // res(JSON.parse(this.responseText));
+                    res(JSON.parse(this.responseText));
                 }
                 Req.open("GET", 'https://playwithpromise.herokuapp.com/api/order-review/getid/{id} ');
                 Req.send();
@@ -120,8 +119,8 @@
         }
 
         promise1.then(data => {
-            console.log(data);
-        })
+            return data._id;
+        }).then(f => getId(f)).then(finalData => console.log('Final Data: ', finalData));
         
     </script>
 </body>
