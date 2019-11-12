@@ -17,6 +17,8 @@
             reject(new Error("My Custom Error!!!"));
         })
         pr.then(data => data).catch(console.log('ERROR!!!'));
+
+
         //2) Есть код ! с помощью промисов написать таким образом чтобы выполнилось по порядку от одного до 5!
         // На данный момент выполнятся setTimeout-ы вконце!!
         
@@ -52,16 +54,19 @@
         }).then((d) => {
             console.log(d);
         })
+
         //3) Есть код !  Нужно всего лишь написать комментарий что делает каждая из строчок!
         const pr2 = new Promise(function (resolve, reject) {
             resolve({id: 2}) // resolve (успешное выполнение) принимает обьект {id: 2}
         });
-        pr2.then((data) => data) // принимает обьект {id: 2}
+        pr2.then((data) => data) // обрабатывается resolve и возвращает обьект {id: 2}
             .then((res) => { 
-                throw new Error('Something went wrong') 
+                throw new Error('Something went wrong') // возвращает ошибку (reject)
             })
-            .catch((e) => console.log('ERROR', e) )
+            .catch((e) => console.log('ERROR', e) )  // обработчик catch отлавливает ошибку и обрабатывает её
        
+
+
         // 4) Использую Promise.all получить массив из промисов и после чего отсортировать тот что возвращает массив! 
         const prom1 = new Promise(function (resolve, reject) {
             resolve(10);
@@ -72,6 +77,18 @@
         const prom3 = new Promise(function (resolve, reject) {
             resolve([6, 2, 4, 6]);
         }) 
+
+        Promise.all([prom1, prom2, prom3]).then(val => {
+            let newVal = val.filter(item => {
+                if ( Array.isArray(item) ) {
+                    return item;
+                }
+            });
+            return console.log(newVal);
+        })
+
+
+
         // 5) Есть роуты!!
         // https://playwithpromise.herokuapp.com/api/order-review/last - вернет обьект с id такой( 5d4762e02481a600174fb1ae )
         // после чего используя id делаем другой запрос
