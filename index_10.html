@@ -98,6 +98,8 @@
         // у обьектов будет productId еще сделать запрос по productId то есть два запроса ибо 2 обьекта в которых свой productId Promise.all в помощь!!
         // ВОТ ПРИМЕР ЗАПРОСА по первому URL! Конечно это нужно будет обернуть в промис!
 
+        // Новый id 5dcb2558526eb500173b129d
+
         let promise1 = new Promise(function(res, rej) {
             var Req = new XMLHttpRequest();
             Req.open("GET", 'https://playwithpromise.herokuapp.com/api/order-review/last');
@@ -120,7 +122,14 @@
 
         promise1.then(data => {
             return data._id;
-        }).then(f => getId(f)).then(finalData => console.log('Final Data: ', finalData));
+        }).then(f => getId(f)).then(finalData => {
+        	[first, second] = finalData.orderList;
+        	let firstId = first.productId;
+        	let secondId = second.productId;
+        	console.log(firstId);
+        	console.log(secondId);
+        });
+
         
     </script>
 </body>
