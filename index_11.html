@@ -1,0 +1,55 @@
+<html>
+
+<head>
+    <title>JAVASCRIPT</title>
+</head>
+
+<body>
+    <script>
+        // ЗАДАНИЯ ДЛЯ РАЗМИНКИ!!!!!!)))
+
+
+        //1) Есть код ! с помощью async await реализуем правильную последовательность!!
+        const promice1 = new Promise((resolve, reject) => {
+            setTimeout(() => resolve('1'), 1300);
+        });
+        const promice2 = new Promise((resolve, reject) => {
+            resolve('2');
+        });
+        const promice3 = new Promise((resolve, reject) => {
+            resolve('3');
+        });
+        const promice4 = new Promise((resolve,reject) => {
+            setTimeout(() => resolve('4'), 300);
+        });
+        const promice5 = new Promise((resolve, reject) => {
+            resolve('5');
+        });
+
+        async function f() {
+            let res1 = await promice1;
+            let res2 = await promice2;
+            let res3 = await promice3;
+            let res4 = await promice4;
+            let res5 = await promice5;
+            console.log(res1);
+            console.log(res2);
+            console.log(res3);
+            console.log(res4);
+            console.log(res5);
+        }
+
+        f();
+
+        // 2) Есть роуты!! Делаем через async await то что в предыдущей!
+        // https://playwithpromise.herokuapp.com/api/order-review/last - вернет обьект с id такой( 5dcb2558526eb500173b129d )
+        // после чего используя id делаем другой запрос
+        // https://playwithpromise.herokuapp.com/api/order-review/getid/{id} 
+        // https://playwithpromise.herokuapp.com/api/order-system/product/{productId}
+
+
+        
+    </script>
+</body>
+
+</html>
