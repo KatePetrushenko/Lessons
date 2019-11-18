@@ -27,12 +27,10 @@
         }
 
         //2) исправить код чтобы консоль логи показывали от 0 до 10, и написать почему сейчас выводит десять десяток!!
-        for (var i = 0; i < 10; i++) {
-        	(function(i) {
-                setTimeout(function(){
-                  console.log(i);
-                }, 0);
-            })(i);
+        for (let i = 0; i < 10; i++) {
+            setTimeout(function(){
+              console.log(i);
+            }, 0);
         }
         // setTimeout попадает в очередь событий event queue. Ноль в конце говорит о том, что функция setTimeout выполнется после текущего кода, в данном случае в Call Stack выполнился весь цикл, а потом уже setTimeout. И, как я понимаю , на момент вызова i уже будет равна 10
 
@@ -99,7 +97,7 @@
         function factory1(name, lastName) {
             this.name = name;
             this.lastName = lastName;
-            var fullName = name + ' ' + lastName;
+            let fullName = name + ' ' + lastName;
 
             this.random = Math.random(); 
 
@@ -117,30 +115,25 @@
         console.log(q);
         console.log(q.getRealName());
 
-        // 8) Есть код! Почему строчка с комментарием покажет {misha: NADUSHA}! Сделать так чтобы a.getObject(); вернул {misha: 'misha'}
+         // 8) Есть код! Почему строчка с комментарием покажет {misha: NADUSHA}! Сделать так чтобы a.getObject(); вернул {misha: 'misha'}
         // то есть должны быть независимые обьекты!!
         function newFactory(obj) {
             var object = obj;
 
             return {
                 getObject: function() {
-                    return object;
+                    return {...object};
                 }
             };
         }
         var a1 = newFactory({misha: 'misha'});
         var k = a1.getObject();
-        
-        
         k.misha = 'NADUSHA'; 
         a1.getObject(); // КОММЕНТАРИЙ!!! покажет NADUSHA 
+        
         console.log(a1.getObject());
-       
-        // Почему строчка с комментарием покажет {misha: NADUSHA}
-        // - потому что a1 возвращает обьект , а обьект ссылочный тип данных;
+        console.log(k);
 
-        var myNewA1 = new newFactory({misha: 'misha'});
-        console.log(myNewA1.getObject()); 
 
     </script>
 </body>
