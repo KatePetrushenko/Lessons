@@ -38,7 +38,6 @@
             console.log(res4);
             console.log(res5);
         }
-
         f();
 
         // 2) Есть роуты!! Делаем через async await то что в предыдущей!
@@ -46,8 +45,41 @@
         // после чего используя id делаем другой запрос
         // https://playwithpromise.herokuapp.com/api/order-review/getid/{id} 
         // https://playwithpromise.herokuapp.com/api/order-system/product/{productId}
+        const lastUrl = 'https://playwithpromise.herokuapp.com/api/order-review/last';
+        const getidUrl = 'https://playwithpromise.herokuapp.com/api/order-review/getid/';
+        const getProductUrl = 'https://playwithpromise.herokuapp.com/api/order-system/product/';
 
+        function myRequest(url, id) {
+            return new Promise(function(res, rej) {
+                var Req = new XMLHttpRequest();
+                if(id){
+                    url += id;
+                }
+                Req.open("GET", url);
+                Req.send();
+                Req.onload = function () {
+                    if (this.status == 200) res(JSON.parse(this.responseText));
+                }
+            });
+        }
 
+        function getProducts(firstId, secondId) {
+            return Promise.all([myRequest(getProductUrl, firstId), myRequest(getProductUrl, secondId)])
+        }
+
+        async function myAsyncRequest() {
+            let firstRequest = await myRequest(lastUrl);
+            id = firstRequest._id;
+
+            let secondRequest = await myRequest(getidUrl, id);
+            let [first, second] = secondRequest.orderList;
+            let firstId = first.productId;
+            let secondId = second.productId;
+
+            let thirtRequest = await getProducts(firstId, secondId)
+            console.log(thirtRequest);
+        }
+        myAsyncRequest();
         
     </script>
 </body>
