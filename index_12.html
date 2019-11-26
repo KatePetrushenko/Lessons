@@ -1,0 +1,183 @@
+<html>
+
+<head>
+    <title>JAVASCRIPT</title>
+</head>
+
+<body>
+    <script>
+        // ЗАДАНИЯ ДЛЯ РАЗМИНКИ!!!!!!)))
+
+
+        //1) Есть функция, которая может принять неограниченное количество аргументов'-', '65', 'a', 'p', реализуйте ее так, что бы она находила дефиз и возвращала '65-a-p'
+        function getString(...arr) {
+            ///ваш код
+            return arr.filter(data => {
+                if ( data != '-' ) {
+                    return data;
+                }
+            }).join('-');
+        }
+        console.log(getString('-', '65', 'a', 'p')); // 65-a-p
+        console.log(getString('75', '-', 'ad', 'hg', '543')); // 75-ad-hg-543
+
+        //2)  Перехватит ли catch здесь ошибку
+        new Promise((resolve, reject) => {
+            resolve('dffsd')
+        }).then((vasia) => {
+            var df= 'dfdf'; //  ошибка вот она синтаксическая!
+            // Если закомитить строку или исправить ошибку, то вернёт 3423 : 
+            return 3423;
+        })
+        //вывод 3423
+        .then(data => {
+            return console.log(data);
+        })
+        .catch((e)=> console.log('fdsfd', e));
+
+         // или здесь
+        new Promise((resolve, reject) => {
+        resolve('dffsd')
+        }).then((vasia) => { 
+            throw new Error('new errror'); // вот явно бросаем ошибку 
+            // дальше код не выполняется , и сразу идёт переход в catch
+            return 3423;
+        })
+        .then(data => {
+            return console.log(data);
+        })
+        .catch((e)=> console.log('fdsfd', e));
+
+        // Функции resolve/reject принимают ровно один аргумент – результат(resolve) или ошибку(reject).
+
+
+
+        // 3) Взял с проекта код!! Нужно всего лишь переписать на async await :) Запускать не нужно ибо не сработает), просто переписать а я посмотрю!
+
+        let uploadedImage ='_.jpg';
+
+        async function pickImage() {
+            let context = imagepicker.create({
+                mode: 'single'
+            });
+            let promise = context
+                .authorize()
+                .then(() => {
+                    return context.present();
+                })
+                .then((selection) => {
+                    selection.forEach((selected) => {
+                        uploadedImage= selected;
+                        cropImage();
+                    });
+                });
+            let result = await promise;
+            return result;
+        }
+
+        /**
+         * Takes camera photo
+         */
+        async function takePhoto() {
+            let promise = camera.requestPermissions().then(() => {
+                camera.takePicture()
+                    .then((imageAsset) => {
+                        uploadedImage = imageAsset;
+                        cropImage();
+                    });
+            });
+            let result = await promise;
+            return result;
+        }
+
+        /**
+         * Crops picture
+         */
+        async function cropImage() {
+            let source = new imageSource.ImageSource();
+            let promise = source.fromAsset(this.uploadedImage).then(source => {
+                this.imageCropper
+                    .show(source, cropOptions)
+                    .then(args => {
+                        if (args.image !== null) {
+                            savePictureToFile(args.image);
+                        }
+                    });
+            });
+            let result = await promise;
+            return result;
+        }
+      
+        /**
+         * Crops picture
+         */
+         function savePictureToFile(image) {
+            const folder = fs.knownFolders.documents();
+            const path = fs.path.join(folder.path, "Temp" + Date.now() + ".png");
+            const saved = image.saveToFile(path, "png");
+            if (saved) {
+                this.currentImage = image;
+                this.pictureSelected.emit(path);
+            }
+        }
+
+        function cropOptions() {
+            return isAndroid ? {
+                width: 512,
+                height: 512
+            } : {
+                    lockSquare: true
+                };
+        }
+     
+
+        pickImage();
+
+
+        // 4) И закрепляем промисы  
+        // https://playwithpromise.herokuapp.com/api/order-review/last -
+         // setTimeout(() => {
+             // вернуть строку https://playwithpromise.herokuapp.com/api/order-review/last через 3 секунды и только тогда сделать запрос по этой строке!
+         // }, 3000)
+
+        const pr = new Promise(function(resolve, reject) {
+            setTimeout(() => resolve('https://playwithpromise.herokuapp.com/api/order-review/last'), 3000)
+        })
+
+        function myRequest(url) {
+            return new Promise(function(res, rej) {
+                var Req = new XMLHttpRequest();
+                Req.open("GET", url);
+                Req.send();
+                Req.onload = function () {
+                    if (this.status == 200) res(JSON.parse(this.responseText));
+                }
+            });
+        };
+        async function f() {
+            let myUrl = await pr;
+            return myRequest(myUrl);
+        };
+
+        f();
+
+         // 5) Ну и последнее так уже чтобы расслабиться)! Пишем свой собственный push!!
+        function push(array, addArr) {
+             // ваш код
+             array = [
+                ...array,
+                ...addArr
+             ]
+             return array;
+        }
+
+        let exampleArr = [123, 2, 97, 'test text', 4, 17, 'another line', {name:"Test", lastName: "Test"}];
+        let additionArr = ['48', '84']
+
+        console.log(push(exampleArr, additionArr));
+
+
+    </script>
+</body>
+
+</html>
