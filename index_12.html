@@ -53,12 +53,14 @@
 
 
         // 3) Взял с проекта код!! Нужно всего лишь переписать на async await :) Запускать не нужно ибо не сработает), просто переписать а я посмотрю!
+
         let uploadedImage ='_.jpg';
-        function pickImage() {
+
+        async function pickImage() {
             let context = imagepicker.create({
                 mode: 'single'
             });
-            context
+            let promise = context
                 .authorize()
                 .then(() => {
                     return context.present();
@@ -69,27 +71,31 @@
                         cropImage();
                     });
                 });
+            let result = await promise;
+            return result;
         }
 
         /**
          * Takes camera photo
          */
-        function takePhoto() {
-            camera.requestPermissions().then(() => {
+        async function takePhoto() {
+            let promise = camera.requestPermissions().then(() => {
                 camera.takePicture()
                     .then((imageAsset) => {
                         uploadedImage = imageAsset;
                         cropImage();
                     });
             });
+            let result = await promise;
+            return result;
         }
 
         /**
          * Crops picture
          */
-         function cropImage() {
+        async function cropImage() {
             let source = new imageSource.ImageSource();
-            source.fromAsset(this.uploadedImage).then(source => {
+            let promise = source.fromAsset(this.uploadedImage).then(source => {
                 this.imageCropper
                     .show(source, cropOptions)
                     .then(args => {
@@ -98,8 +104,10 @@
                         }
                     });
             });
+            let result = await promise;
+            return result;
         }
-
+      
         /**
          * Crops picture
          */
@@ -121,8 +129,10 @@
                     lockSquare: true
                 };
         }
+     
 
-        pickImage()
+        pickImage();
+
 
         // 4) И закрепляем промисы  
         // https://playwithpromise.herokuapp.com/api/order-review/last -
@@ -130,13 +140,11 @@
              // вернуть строку https://playwithpromise.herokuapp.com/api/order-review/last через 3 секунды и только тогда сделать запрос по этой строке!
          // }, 3000)
 
-         const pr = new Promise(function(resolve, reject) {
+        const pr = new Promise(function(resolve, reject) {
             setTimeout(() => resolve('https://playwithpromise.herokuapp.com/api/order-review/last'), 3000)
-         })
+        })
 
-        // pr.then(data => console.log(data));
-
-         function myRequest(url) {
+        function myRequest(url) {
             return new Promise(function(res, rej) {
                 var Req = new XMLHttpRequest();
                 Req.open("GET", url);
