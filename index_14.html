@@ -41,12 +41,25 @@
         }
        
         // 4) Пишем свой split и join))!
-        function split() {
+        function split(str, simbol) {
             // your code
+            if ( str.includes(simbol) ) {
+                let index = str.indexOf(simbol);
+                if ( let i = 0, i < str.length, i++ ) {
+                    let word = '';
+                    console.log(index)   
+                }
+                return console.log('test');
+            }
+            return console.log('false');
         }
         function join() {
             // your code
         }
+
+        console.log(split('Lorem ipsum dolor sit amet, consectetur adipiscing elit', ' '));
+
+
         // 5) Ну и на последок перепишем класс в вид самовыз функция которая возвращает функцию-конструктор
         class NewApp {
             constructor(object) {
@@ -56,6 +69,15 @@
                 return object;
             }
         }
+
+        function NewApp2(object) {
+            this.object = object;
+        }
+        NewApp2.prototype.getObject = function() {
+            return this.object;
+        }
+        let a = new NewApp2('Test Text');
+        console.log(a);
 
         
     </script>
