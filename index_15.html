@@ -28,12 +28,30 @@
                 this.numOfStaff = numOfStaff;
             }
         }
-        let result1 = new Restaurant('Building', 50);
-        let result2 = new Hotel('Building', 200);
+        const result1 = new Restaurant('Building', 50);
+        const result2 = new Hotel('Building', 200);
         
         
         //2) Создать класс Builder со свойствами name, salary, workingHoursPerDay,и реализовать 2 класса со статическими 
         // функциями, первый класс имеет функцию которая сортирует по salary и принимает массив из строителей, а второй находит сотрудника у которого самое большое workingHoursPerDay
+
+        class Builder {
+            constructor(name, salary, workingHoursPerDay) {
+                this.name = name;
+                this.salary = salary;
+                this.workingHoursPerDay = workingHoursPerDay;
+            }
+        }
+        class sortSalary extends Builder {
+            constructor(name, salary, workingHoursPerDay) {
+                super(name, salary, workingHoursPerDay);
+            }
+            static salary(builders) {
+
+            }
+        }
+        const
+
     
 
         //3) Есть класс App! Который принимает массив с обьектов со свойствами name, country и нужно вернуть обьект с ключами которые являются значениями свойства country где будет массивы с name!
