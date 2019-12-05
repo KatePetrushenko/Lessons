@@ -54,23 +54,33 @@
         }
        
         // 4) Пишем свой split и join))!
+        let string = 'Lorem ipsum dolor sit amet consectetur adipiscing elit';
+        console.log(string.split(' ')); /// split
+
         function split(str, simbol) {
             // your code
             if ( str.includes(simbol) ) {
                 let index = str.indexOf(simbol);
-                for ( let i = 0; i < str.length; i++ ) {
-                    let word = '';
-                    console.log(index);
-                }
-                return console.log('test');
+                let arr = [];
+                let firstIndex = 0;
+                let word = str.slice(firstIndex, index);
+                arr = [
+                    ...arr,
+                    word,
+                ]
+                let newStr = str.substr(index+1, str.length);
+                console.log(arr);
+                return console.log(newStr);
             }
             return console.log('false');
         }
+        console.log(split(string, ' '));
+
+
         function join() {
             // your code
         }
 
-        console.log(split('Lorem ipsum dolor sit amet, consectetur adipiscing elit', ' '));
 
 
         // 5) Ну и на последок перепишем класс в вид самовыз функция которая возвращает функцию-конструктор
