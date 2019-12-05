@@ -57,37 +57,33 @@
         let uploadedImage ='_.jpg';
 
         async function pickImage() {
-            let context = imagepicker.create({
-                mode: 'single'
-            });
-            let promise = context
-                .authorize()
-                .then(() => {
-                    return context.present();
-                })
-                .then((selection) => {
-                    selection.forEach((selected) => {
-                        uploadedImage= selected;
-                        cropImage();
-                    });
+            try {
+                let context = imagepicker.create({
+                    mode: 'single'
                 });
-            let result = await promise;
-            return result;
+                const success = await context.authorize();
+                const selection = context.present();
+                for (const selected of selection) {
+                    uploadedImage = selected;
+                    await cropImage();
+                }
+            } catch(e) {
+                console.log(e);
+            }
         }
 
         /**
          * Takes camera photo
          */
         async function takePhoto() {
-            let promise = camera.requestPermissions().then(() => {
-                camera.takePicture()
-                    .then((imageAsset) => {
-                        uploadedImage = imageAsset;
-                        cropImage();
-                    });
-            });
-            let result = await promise;
-            return result;
+            try {
+                await camera.requestPermissions();
+                const imageAsset = await camera.takePicture();
+                uploadedImage = imageAsset;
+                await cropImage();
+            } catch(e) {
+                console.log(e);
+            }
         }
 
         /**
@@ -95,17 +91,13 @@
          */
         async function cropImage() {
             let source = new imageSource.ImageSource();
-            let promise = source.fromAsset(this.uploadedImage).then(source => {
-                this.imageCropper
-                    .show(source, cropOptions)
-                    .then(args => {
-                        if (args.image !== null) {
-                            savePictureToFile(args.image);
-                        }
-                    });
-            });
-            let result = await promise;
-            return result;
+            const _source = await source.fromAsset(this.uploadedImage);
+
+            const args = await this.imageCropper.show(source, cropOptions);
+
+            if (args.image !== null) {
+                savePictureToFile(args.image);
+            }
         }
       
         /**
@@ -126,8 +118,8 @@
                 width: 512,
                 height: 512
             } : {
-                    lockSquare: true
-                };
+                lockSquare: true
+            };
         }
      
 

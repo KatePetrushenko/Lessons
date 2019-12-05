@@ -1,0 +1,99 @@
+<html>
+
+<head>
+    <title>JAVASCRIPT</title>
+</head>
+
+<body>
+    <script>
+        // ЗАДАНИЯ ДЛЯ РАЗМИНКИ!!!!!!)))
+
+        //1) Есть две функции конструктор! Нужно c помощью prototype сделать second родителем first!
+        function A(name) {
+            this.name = name;
+        }
+        function B(lastName) {
+            this.lastName = lastName;
+        }
+        const first = new A('Sergei');
+        const second = new B('Shakhov');
+
+        first.prototype = new B('Shakhov');
+        console.log(first);
+        
+        //2) Создать класс функция конструктор которого принимает два параметра position, salary, 
+        // также создать одно private поле positions = ['software developer', 'hr manager', 'project manager'], getter(get функция)!
+        // которая смотрит на поле positions, и если в position есть одно из перечисленных то возвращает true иначе false
+
+        class Salary {
+            constructor(position, salary) {
+                this.position = position;
+                this.salary = salary;
+            }
+            #positions = ['software developer', 'hr manager', 'project manager'];
+            get getter() {
+                if ( this.position ) {
+                    return true
+                }
+                return false;
+            }
+        }
+
+        const result2 = new Salary('1', '2');
+        console.log(result2.position); 
+        console.log(result2.salary); 
+        // console.log(result2.#positions); /// выведет ошибку
+        console.log(result2.getter); 
+    
+
+        //3) Есть класс App! Добавить две функции одна из них устанавливает product(создает поле product обьект с полем name, price), вторая функция получает price 
+        // и одно статическое свойство yearOfIssue
+        class App {
+            constructor() {
+            };
+        }
+       
+        // 4) Пишем свой split и join))!
+        function split(str, simbol) {
+            // your code
+            if ( str.includes(simbol) ) {
+                let index = str.indexOf(simbol);
+                for ( let i = 0; i < str.length; i++ ) {
+                    let word = '';
+                    console.log(index);
+                }
+                return console.log('test');
+            }
+            return console.log('false');
+        }
+        function join() {
+            // your code
+        }
+
+        console.log(split('Lorem ipsum dolor sit amet, consectetur adipiscing elit', ' '));
+
+
+        // 5) Ну и на последок перепишем класс в вид самовыз функция которая возвращает функцию-конструктор
+        class NewApp {
+            constructor(object) {
+                this.object = object;
+            }
+            getObject() {
+                return object;
+            }
+        }
+
+        function NewApp2(object) {
+            this.object = object;
+        }
+        NewApp2.prototype.getObject = function() {
+            return this.object;
+        }
+        let a = new NewApp2('Test Text');
+        console.log(a);
+
+        
+    </script>
+</body>
+
+</html>

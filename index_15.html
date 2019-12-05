@@ -1,0 +1,80 @@
+<html>
+
+<head>
+    <title>JAVASCRIPT</title>
+</head>
+
+<body>
+    <script>
+        // ЗАДАНИЯ ДЛЯ РАЗМИНКИ!!!!!!)))
+
+        //1) Создать класс Building принимающий  параметр manufacturer,  и 2-х его наследников Restaurant, Hotel где эти 2 класса принимают еще один парамет Number of staff. 
+        // нужно подсчитать среднее арифметическое всех сотрудников
+
+        class Building {
+            constructor(manufacturer) {
+                this.manufacturer = manufacturer;
+            };
+        }
+        class Restaurant extends Building {
+            constructor(manufacturer, numOfStaff){
+                super(manufacturer);
+                this.numOfStaff = numOfStaff;
+            }
+        }
+        class Hotel extends Building {
+            constructor(manufacturer, numOfStaff){
+                super(manufacturer);
+                this.numOfStaff = numOfStaff;
+            }
+        }
+        const result1 = new Restaurant('Building', 50);
+        const result2 = new Hotel('Building', 200);
+        
+        
+        //2) Создать класс Builder со свойствами name, salary, workingHoursPerDay,и реализовать 2 класса со статическими 
+        // функциями, первый класс имеет функцию которая сортирует по salary и принимает массив из строителей, а второй находит сотрудника у которого самое большое workingHoursPerDay
+
+        class Builder {
+            constructor(name, salary, workingHoursPerDay) {
+                this.name = name;
+                this.salary = salary;
+                this.workingHoursPerDay = workingHoursPerDay;
+            }
+        }
+        class sortSalary extends Builder {
+            constructor(name, salary, workingHoursPerDay) {
+                super(name, salary, workingHoursPerDay);
+            }
+            static salary(builders) {
+
+            }
+        }
+        const
+
+    
+
+        //3) Есть класс App! Который принимает массив с обьектов со свойствами name, country и нужно вернуть обьект с ключами которые являются значениями свойства country где будет массивы с name!
+        // как на уроке одним словом то есть так
+        //  
+        const res = {
+            'Ukraine':  ['VAsia', 'Petia', 'Boria'],
+            'USA': ['John', 'Ben']
+        }
+        const users = [
+            { name: 'VAsia', country: 'Ukraine'},
+            { name: 'Petia', country: 'Ukraine'},
+            { name: 'Boria', country: 'Ukraine'},
+            { name: 'Ben', country: 'USA'},
+            { name: 'John', country: 'USA'},
+        ]
+        class App {
+            constructor() {
+            };
+        }
+
+        
+    </script>
+</body>
+
+</html>
