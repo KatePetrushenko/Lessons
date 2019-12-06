@@ -93,7 +93,7 @@
             let source = new imageSource.ImageSource();
             const _source = await source.fromAsset(this.uploadedImage);
 
-            const args = await this.imageCropper.show(source, cropOptions);
+            const args = await this.imageCropper.show(_source, cropOptions);
 
             if (args.image !== null) {
                 savePictureToFile(args.image);

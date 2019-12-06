@@ -49,28 +49,59 @@
         //3) Есть класс App! Добавить две функции одна из них устанавливает product(создает поле product обьект с полем name, price), вторая функция получает price 
         // и одно статическое свойство yearOfIssue
         class App {
-            constructor() {
+            constructor(name, price) {
+                this.name = name;
+                this.price = price;
             };
-        }
-       
-        // 4) Пишем свой split и join))!
-        function split(str, simbol) {
-            // your code
-            if ( str.includes(simbol) ) {
-                let index = str.indexOf(simbol);
-                for ( let i = 0; i < str.length; i++ ) {
-                    let word = '';
-                    console.log(index);
-                }
-                return console.log('test');
+            // не знаю поняла ли я задачу, ну допустим вот 2 функции getProduct и getPrice  
+            getProduct() {
+                return {
+                    name : this.name,
+                    price : this.price,
+                };
             }
-            return console.log('false');
-        }
-        function join() {
-            // your code
+            getPrice() {
+                return this.price;
+            }
+            static yearOfIssue() {
+                return '2019';
+            }
         }
 
-        console.log(split('Lorem ipsum dolor sit amet, consectetur adipiscing elit', ' '));
+        let app = new App('Apple MacBook Air 13', '29 999');
+        console.log(app.getProduct());
+        console.log(app.getPrice());
+        console.log(App.yearOfIssue());   // static
+
+       
+        // 4) Пишем свой split и join))!
+        let string = 'Lorem ipsum dolor sit amet consectetur adipiscing elit';
+        console.log(string.split(' ')); /// split
+
+        String.prototype.mySplit = function (splitVal) {
+            var stringArray = [''];
+            var j = 0;
+
+            for (var i = 0; i < this.length; i++) {
+                if (this.charAt(i) == splitVal) {
+                    j++;
+                    stringArray.push('');
+                } else {
+                    stringArray[j] += this.charAt(i);
+                }
+            }
+            return stringArray;
+        }
+        console.log(string.mySplit(' ')); /// split
+
+
+        let arrayOfStrings = ['Lorem', 'ipsum', 'dolor', 'sit', 'amet', 'consectetur', 'adipiscing', 'elit'];
+        console.log(arrayOfStrings.join(' '));   /// join
+
+        Array.prototype.myJoin = function(delim = ',') {
+          return this.reduce((a, item) => a ? a + delim + item : item, '');
+        }
+        console.log(arrayOfStrings.myJoin(' '));  /// join
 
 
         // 5) Ну и на последок перепишем класс в вид самовыз функция которая возвращает функцию-конструктор
