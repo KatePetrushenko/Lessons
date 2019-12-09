@@ -42,15 +42,41 @@
                 this.workingHoursPerDay = workingHoursPerDay;
             }
         }
-        class sortSalary extends Builder {
+        class SortSalary extends Builder {
             constructor(name, salary, workingHoursPerDay) {
                 super(name, salary, workingHoursPerDay);
             }
-            static salary(builders) {
-
+            static getSortSalary(builders) {
+                return builders.sort((a, b) => a.salary - b.salary);
             }
         }
-        const
+
+        class MostHours extends Builder {
+            constructor(name, salary, workingHoursPerDay) {
+                super(name, salary, workingHoursPerDay);
+            }
+            static getMostHours(builders) {
+                return builders.reduce((prev, curr) => {
+                    if (prev.workingHoursPerDay > curr.workingHoursPerDay) {
+                        return prev.workingHoursPerDay;
+                    }
+                    return prev.workingHoursPerDay;
+                });
+            }
+        }
+
+
+        const builder1 = new SortSalary('Petia', 18000, 8);
+        const builder2 = new SortSalary('Vasia', 15000, 7);
+        const builder3 = new SortSalary('Vova', 20000, 10);
+
+        console.log(SortSalary.getSortSalary([builder1, builder2, builder3]));
+
+        const buildersHours1 = new MostHours('Petia', 18000, 8);
+        const buildersHours2 = new MostHours('Vasia', 15000, 7);
+        const buildersHours3 = new MostHours('Vova', 20000, 10);
+
+        console.log(MostHours.getMostHours([buildersHours1, buildersHours2, buildersHours3]));
 
     
 
