@@ -30,6 +30,12 @@
         }
         const result1 = new Restaurant('Building', 50);
         const result2 = new Hotel('Building', 200);
+
+        function averageNumOfStaff(arr) {
+            return arr.reduce((a, b) => a + b.numOfStaff, 0)/arr.length;
+        }
+
+        console.log(averageNumOfStaff([result1, result2]));
         
         
         //2) Создать класс Builder со свойствами name, salary, workingHoursPerDay,и реализовать 2 класса со статическими 
@@ -47,7 +53,9 @@
                 super(name, salary, workingHoursPerDay);
             }
             static getSortSalary(builders) {
-                return builders.sort((a, b) => a.salary - b.salary);
+                return builders.sort((a, b) => {
+                    return a.salary - b.salary;
+                });
             }
         }
 
@@ -55,12 +63,9 @@
             constructor(name, salary, workingHoursPerDay) {
                 super(name, salary, workingHoursPerDay);
             }
-            static getMostHours(builders) {
-                return builders.reduce((prev, curr) => {
-                    if (prev.workingHoursPerDay > curr.workingHoursPerDay) {
-                        return prev.workingHoursPerDay;
-                    }
-                    return prev.workingHoursPerDay;
+            static getMostHours(arr) {
+                return arr.reduce((prev, curr) => {
+                    return (prev.workingHoursPerDay > curr.workingHoursPerDay) ? prev : curr
                 });
             }
         }
@@ -95,11 +100,26 @@
             { name: 'John', country: 'USA'},
         ]
         class App {
-            constructor() {
+            constructor(users) {
+                this.users = users;
             };
+            static myRes(users) {
+                let obj = {};
+                let countries = users.forEach(elem => {
+                    if ( !obj[elem.country] ) {
+                        obj[elem.country] = [];
+                    }
+                    obj[elem.country].push(elem.name);
+                });
+                return obj;
+            }
         }
 
-        
+        const answer = new App(users);
+
+        console.log(App.myRes(users));
+
+
     </script>
 </body>
 
