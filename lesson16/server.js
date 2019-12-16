@@ -1,5 +1,7 @@
 const http = require('http'); // подключаем http модуль!
 http.createServer((req, res) => {
+
+	res.setHeader('Access-Control-Allow-Origin', '*');
 	// 1
 	// res.end('HELLO WORLD');
 	
