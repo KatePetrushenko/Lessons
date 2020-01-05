@@ -1,10 +1,12 @@
 const http = require('http'); 
+const url = require('url') 
+let port = 3000;
+
 http.createServer((req, res) => {
-
     res.setHeader('Access-Control-Allow-Origin', '*');
-
-    const url = require('url') 
-    
+    let q = url.parse(req.url, true);
+    let qdata = q.query;
+    let qSearch = q.search;
     const phones = [
         {
             name: 'iphone7',
@@ -47,7 +49,25 @@ http.createServer((req, res) => {
             color: 'black'
         },
     ];
+    // http://localhost:3000/phones?priceS=7000&priceF=40000&color=black - вот пример, где ?priceS=7000&priceF=40000&color=black -  query
 
-    res.end(JSON.stringify(phones));
+    if (req.url === '/phones') {
+        res.end(JSON.stringify(phones));
+    }
+    if (req.url.includes('/phones?')) {
+        let phonesArr = phones.filter(i => {
+            if((i.color == qdata.color) && (qdata.priceS <= i.price) && ( i.price <= qdata.priceF) ) {
+                return i;
+            }
+        });
+        if(phonesArr.length != 0) {
+            res.end(JSON.stringify(phonesArr));
+        } else {
+            res.end(JSON.stringify('Please enter three parameters'));
+        }
+        
+    }
 
-}).listen(3000, '127.0.0.1', () => console.log('Server is listening on port:' + 3000) );
+    res.end(JSON.stringify('Hellow!'));
+
+}).listen(port, '127.0.0.1', () => console.log(`Server is listening on port: ${port}`) );

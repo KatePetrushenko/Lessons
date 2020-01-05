@@ -42,7 +42,7 @@
         // http://localhost:3000/phones?priceS=7000&priceF=40000&color=black - вот пример, где ?priceS=7000&priceF=40000&color=black -  query
         // где 7000 - 40000 - диапазон цен, то есть в query фильтр, диапазон 7000 - 40000  и цвет черный
         // Делаем сервер, НА сервере есть массив с обьектов, использем модуль
-        const url = require('url') 
+        // const url = require('url') 
         // чтобы распарсить priceS, priceF, color и отдаем отфильтрованный массив phones по этим 3-м критериям, соответственно если поменять диапазон цен или цвет то и
         // массив уже будет другой, не хардкодим)))
         const phones = [
@@ -88,15 +88,23 @@
             },
         ];
 
-        let xhr = new XMLHttpRequest();
-            xhr.open('POST', 'http://localhost:3000' );
-            xhr.send();
-            xhr.onload = function() {
-                if (xhr.status == 200) {
-                  console.log(JSON.parse(xhr.responseText));
+        function get(method, url) {
+            return new Promise((res,rej) => {
+                let xhr = new XMLHttpRequest();
+                xhr.open(method, url);
+                xhr.send();
+                xhr.onload = function() {
+                    if (xhr.status == 200) {
+                    //   console.log(JSON.parse(xhr.responseText));
+                        res(xhr.responseText);
+                    }
                 }
-            }
-
+            })
+        }
+        get('POST', 'http://localhost:3000').then(data => {
+            let result = JSON.parse(data);
+            console.log(result);
+        });
 
     </script>
 </body>
