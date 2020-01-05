@@ -30,9 +30,7 @@
             // пробую отправлять запрос на сервер :
             var xhr = new XMLHttpRequest();
             xhr.open('GET', 'http://localhost:3000' );
-
             xhr.send();
-
             xhr.onload = function() {
                 if (xhr.status == 200) {
                   console.log(JSON.parse(xhr.responseText));
