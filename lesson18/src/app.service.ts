@@ -95,32 +95,32 @@ export class AppService {
     return formula;
   }
 
-  getPostData() {
-    const obj = {
-      "id": 710,
-      "validation": {
-          "min": 0,
-          "max": 800,
-          "required": null,
-          "readonly": null,
-          "params": null
-      },
-      "default": "10",
-      "name": "IT",
-      "label": "Cable/Pipe FILL/occupancy FILL"
-    }
-    return obj;
-  }
+  // getPostData() {
+  //   const obj = {
+  //     "id": 710,
+  //     "validation": {
+  //         "min": 0,
+  //         "max": 800,
+  //         "required": null,
+  //         "readonly": null,
+  //         "params": null
+  //     },
+  //     "default": "10",
+  //     "name": "IT",
+  //     "label": "Cable/Pipe FILL/occupancy FILL"
+  //   }
+  //   return obj;
+  // }
 
-  removeParam(customVal, customId) {
-    let arr = this.getHello;
-    let arr2 = arr().parameters;
-    return arr2.filter(a => {
-      if ( a.id !== customId) {
-        // delete a.customVal;
-        return a;
-      }
-    });
-  }
+  // removeParam(customVal, customId) {
+  //   let arr = this.getHello;
+  //   let arr2 = arr().parameters;
+  //   return arr2.filter(a => {
+  //     if ( a.id !== customId) {
+  //       // delete a.customVal;
+  //       return a;
+  //     }
+  //   });
+  // }
 
 }
