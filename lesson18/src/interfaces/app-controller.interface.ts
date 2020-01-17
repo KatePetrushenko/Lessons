@@ -1,6 +1,5 @@
-import { IFormula } from "./formula.interface";
+import { IFormula, IParameters } from "./formula.interface";
 
 export interface IApp {
     getHello(): IFormula;
-    getAll(): String;
 }
