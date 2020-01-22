@@ -41,8 +41,7 @@ export class AppController implements IApp {
   @Delete(':id')
   remove(@Param('id') id: number ) {
     let arr = this.appService.getHello();
-
-    let newArr = arr.parameters.filter(elem =>elem.id != id )
+    let newArr = arr.parameters.filter(elem =>elem.id != id );
     return newArr;
   }
 }

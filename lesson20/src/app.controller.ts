@@ -114,11 +114,10 @@ export class AppController implements IApp {
   }
 
   @Delete('/parameters/:parameterId')
-  removeId(@Body() body: IFormula, @Param('id') parameterId: number )  {
-    // let newArr2 = this.formula.parameters.filter(elem =>elem.id != parameterId );
-    // this.formula.parameters = newArr2;
-    // return this.formula;
-    return body;
+  removeId(@Body() body: { formula: IFormula },@Param('id') parameterId: number )  {
+    let newArr2 = this.formula.parameters.filter(elem =>elem.id != parameterId );
+    this.formula.parameters = newArr2;
+    return this.formula;
   }
 }
 
