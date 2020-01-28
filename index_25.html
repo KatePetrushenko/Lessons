@@ -1,18 +1,67 @@
 <html>
-
 <head>
     <title>JAVASCRIPT</title>
+	<style>
+		img {
+			max-width: 100%;
+		}
+		.product-list {
+			list-style: none;
+			padding: 0;
+			margin: 0; 
+			display: flex;
+			flex-wrap: wrap;
+			width: 100%;
+		}
+		.product-item {
+			width: 30%;
+			margin-bottom: 30px;
+			padding: 0 20px;
+		}
+	</style>
 </head>
 
 <body>
-    <script>
-        // ЗАДАНИЯ ДЛЯ РАЗМИНКИ!!!!!!)))
+  <script>
+    // ЗАДАНИЯ ДЛЯ РАЗМИНКИ!!!!!!)))
 
-        //1) Задача состоит в следующем! Делаем GET запрос https://playwithpromise.herokuapp.com/api/order-system получаем даные в виде массива
-        // Создаем разметку с помощью createElement и выводим список продуктов, а именно поля productImage, productName, description!(productImage - ссылка на картинку)
+    //1) Задача состоит в следующем! Делаем GET запрос https://playwithpromise.herokuapp.com/api/order-system получаем даные в виде массива
+    // Создаем разметку с помощью createElement и выводим список продуктов, а именно поля productImage, productName, description!(productImage - ссылка на картинку)
 
+    let url = 'https://playwithpromise.herokuapp.com/api/order-system';
 
-    </script>
+    const productList = document.createElement("ul");
+    productList.className = 'product-list';
+    document.body.append(productList);
+    function myRequest() {
+			return new Promise(function(res,rej) {
+				const xhr = new XMLHttpRequest();
+
+				xhr.open("GET", url);
+				xhr.setRequestHeader('Content-Type', 'application/json');
+				xhr.send();
+
+				xhr.onload = function () {
+					if (this.status == 200) res(JSON.parse(this.responseText));
+				}
+			});
+    }
+		myRequest(url).then(arr => {
+			for (item of arr) {
+				console.log(item.productImage);
+  			const listChild = document.createElement("li");
+  		  const productImg = document.createElement("img");
+    		productList.append(listChild);
+    		listChild.className = 'product-item';
+
+    		let name = '<h1>Name: ' + item.productName + '</h1>';
+    		let description = '<p>Description: ' + item.productDescription + '</p>'
+				listChild.innerHTML = name + description;
+    		listChild.append(productImg);
+    		productImg.src = item.productImage;
+			}
+		});
+  </script>
 </body>
 
 </html>
