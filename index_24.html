@@ -1,55 +1,87 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>JAVASCRIPT</title>
-    <script src="https://unpkg.com/mathjs@6.5.0/dist/math.min.js"></script>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>JAVASCRIPT</title>
+		<script src="https://unpkg.com/mathjs@6.5.0/dist/math.min.js"></script>
 </head>
 
 <body>
-    <script>
-        // Задача используя mathjs считать формулы. Улучшить код, то есть переписать на классы. 
-        // И написать кастомную ошибку если не верные параметры переданы выбросить ее.
-        // Есть код!
+	<script>
+		// Задача используя mathjs считать формулы. Улучшить код, то есть переписать на классы. 
+		// И написать кастомную ошибку если не верные параметры переданы выбросить ее.
+		// Есть код!
 
-        class paramHW {
-            validate(param1, param2) {
-                return param1 && param2;
-            }
-        }
 
-        const parameters = new Map();
+		const parameters = new Map();
 
-        parameters.set('D', 10).set('W', 20).set('H', 23).set('T', 54);
+		parameters.set('D', 10).set('W', 20).set('H', 23).set('T', 54);
 
-        const f1 = 'H+W';
-        const f2 = 'T+W';
-        const f3 = 'D*W';
-        const f4 = 'D*W*T';
+		const f1 = 'H+W';
+		const f2 = 'T+W';
+		const f3 = 'D*W';
+		const f4 = 'D*W*T';
 
-        function evaluate(params) {
+		function evaluate(params) {
+			const param1 = params[0];
+			const param2 = params[1];
+			const param3 = params[2];
 
-            const param1 = params[0];
-            console.log(param1);
-            const param2 = params[1];
-            const param3 = params[1];
+			if(param1 == 'H' && param2 === 'W') math.evaluate(f1, {H: param1, W: param2})
 
-            if(param1 == 'H' && param2 === 'W') math.evaluate(f1, {H: param1, W: param2})
+			else if(param1 == 'T' && param2 === 'W') math.evaluate(f2, {T: param1, W: param2})
 
-            else if(param1 == 'T' && param2 === 'W') math.evaluate(f2, {T: param1, W: param2})
+			else if(param1 == 'D' && param2 === 'W') math.evaluate(f3, {D: param1, W: param2})
 
-            else if(param1 == 'D' && param2 === 'W') math.evaluate(f2, {D: param1, W: param2})
+			else if(param1 == 'D' && param2 === 'W' && param3 === 'T' ) math.evaluate(f4, {D: param1, W: param2, T: param3})
+		}
 
-            else if(param1 == 'D' && param2 === 'W' && param2 === 'T' ) math.evaluate(f2, {D: param1, W: param2, T: param3})
+		console.log(parameters);
+		console.log(evaluate(parameters));
 
-        }
+		class paramHW {
+			static math(params){
+				let [H, W] = params;
+				H = parameters.get("H");
+				W = parameters.get("W");
+				const f1 = "H+W";
+				return eval(f1);
+			}
+			static evaluate(params) {
+				const [H, W] = params;
+				return H == 'H' && W === 'W';
+			}
+		}
 
-        console.log(parameters.prototype);
-        console.log(evaluate(parameters));
+		// class paramTW {
+		// 	constructor(param1, param2){
+		// 		// super math.evaluate(f2, {T: param1, W: param2});
+		// 	}
+		// 	static condition() {
+		// 		return (this.param1 == 'T' && this.param2 === 'W');
+		// 	}
+		// }
 
-    </script>
+		// class paramDW {
+		// 	constructor(param1, param2){
+		// 		// super math.evaluate(f3, {D: param1, W: param2});
+		// 	}
+		// 	static condition() {
+		// 		return (this.param1 == 'D' && this.param2 === 'W');
+		// 	}
+		// }
+		// class paramDWT {
+		// 	constructor(param1, param2, param3){
+		// 		// super math.evaluate(f4, {D: param1, W: param2, T: param3});
+		// 	}
+		// 	static condition() {
+		// 		return (this.param1 == 'D' && this.param2 === 'W' && this.param3 === 'T');
+		// 	}
+		// }
+
+	</script>
 </body>
 
 </html>
