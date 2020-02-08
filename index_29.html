@@ -1,0 +1,66 @@
+<html>
+<head>
+    <title>JAVASCRIPT</title>
+</head>
+
+<body>
+  <script>
+    // Тренировочка с регулярочками
+
+    // 1) Написать регулярное выражение для email например
+
+    // vasiapupkin@gmail.com
+    // inokentiiivanov@gmail.com
+    // boriapetrov@mail.ru
+    let email1 = 'vasiapupkin@gmail.com';
+    let email2 = 'inokentiiivanov@gmail.com';
+    let email3 = 'boriapetrov@mail.ru';
+    
+    let emailRes1 = /^[a-z]{2,30}@[a-z]{1,63}\.[a-z]{1,10}$/i.test(email1);
+    let emailRes2 = /^[a-z]{2,30}@[a-z]{1,63}\.[a-z]{1,10}$/i.test(email2);
+    let emailRes3 = /^[a-z]{2,30}@[a-z]{1,63}\.[a-z]{1,10}$/i.test(email3);
+
+    console.log('Email result 1: ', emailRes1);
+    console.log('Email result 2: ', emailRes2);
+    console.log('Email result 3: ', emailRes3);
+    
+    // 2) повторяем и пишем регулярочку к
+
+    // 2.1 :
+    let url1 = '/product/20';
+
+    let urlRes1 = /^(\/product){1}\/[0-9]{1,2}$/.test(url1); 
+    console.log('Url Result 1', urlRes1);
+
+    // вытаскиваем номер:
+    let reg1 = /^(\/product){1}\//; 
+    let num1 = url1.replace(reg1, '');
+    console.log(`Url '${url1}' has a number `, num1);
+
+    // 2.2 :
+    let url2 = '/person/10/device/90';
+    let urlRes2 = /^(\/person){1}\/[0-9]{1,2}(\/device\/)[0-9]{1,2}/.test(url2);
+    console.log('Url Result 2', urlRes2);
+
+    // вытаскиваем номера:
+
+    let url_2_1 = url2.replace(/^(\/person\/){1}/, '');
+    let firstNum = url_2_1.replace(/(\/device\/)[0-9]{1,2}$/, '');
+    console.log(`Url '${url2}' has a person number `, firstNum);
+
+    let url_2_2 = url_2_1.replace(firstNum, '');
+    let secondNum = url_2_2.replace(/(\/device\/)/, '');
+    console.log(`Url '${url2}' has a device number `, secondNum);
+
+
+    // 3) Написать регулярочку которая начинается с любой цифры и дальше идет один символ с группы [ghtx] и 
+    // закнчивается точкой.
+
+    let res3 = /^[0-9]{1}[ghtx]{1}\.{1}$/.test('1h.');
+    console.log('result 3: ', res3);
+
+
+  </script>
+</body>
+
+</html>
